@@ -1,0 +1,76 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif; /* Alterado para uma fonte moderna */
+    background-color: #f0f2f5; /* Alterado para um tom de cinza claro para um visual mais limpo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px; /* Adicionado padding para evitar que o conteúdo encoste nas bordas */
+    color: #333; /* Cor padrão de texto */
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 30px; /* Aumentado padding para mais espaço interno */
+    background: #ffffff; /* Branco neutro */
+    border-radius: 12px; /* Bordas mais arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra mais suave e moderna */
+    overflow: hidden; /* Garante que o conteúdo não ultrapasse o container */
+}
+
+header {
+    margin-bottom: 30px; /* Maior margem para separar o header do restante do conteúdo */
+}
+
+header h1 {
+    font-size: 28px; /* Fonte maior para um título mais impactante */
+    font-weight: 600; /* Mais peso para o título */
+    color: #222; /* Cor um pouco mais escura que a padrão para mais contraste */
+    text-align: center; /* Centralizado para um design mais equilibrado */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd; /* Cor de borda mais suave */
+    border-radius: 25px; /* Bordas mais arredondadas */
+    padding: 5px 10px; /* Padding ajustado para um design mais equilibrado */
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para destacar a barra de pesquisa */
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+    border-radius: 20px; /* Alinha com a borda da barra de pesquisa */
+}
+
+.search-bar button {
+    background: #007bff; /* Cor de fundo do botão mais moderna */
+    border: none;
+    border-radius: 50%; /* Botão redondo */
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transição suave para interação */
+}
+
+.search-bar button:hover {
+    background: #0056b3; /* Cor de fundo do botão ao passar o mouse */
+}
+
+.search-bar .icon {
+    width: 24px;
+    height: 24px;
+    fill: #ffffff; /* Cor do ícone branca para contrastar com o botão */
+}
