@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign-in</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Entrar</h1>
+    <p>Preencha suas informações</p>
+    
+
+    <div id="formulario">
+        <form id="contact-form">
+            <div class="input-container">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="E-mail" required>
+            </div>
+    
+            <div class="input-container">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="senha" name="senha" placeholder="Senha" required>
+            </div>
+    
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <div id="esqueci" class="esqueci">
+        <p>Esqueci minha senha</p>
+    </div>
+
+
+    <div id="conta" class="conta">
+        <p>Não tem uma conta?</p>
+    </div>
+
+    <button id="botao-azul" class="botao-azul">Inscreva-se</button>
+
+    <script>
+        document.getElementById('esqueci').addEventListener('click', function() {
+            window.location.href = 'reset_password';
+        });
+
+        document.getElementById('conta').addEventListener('click', function() {
+            window.location.href = 'registrar';
+        });
+
+        document.getElementById('botao-azul').addEventListener('click', function() {
+            window.location.href = 'registrar';
+        });
+
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/api/users/login', { // Atualize a URL se necessário
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, senha })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    window.location.href = 'pesquisar';
+                    // Redirecionar ou armazenar o token JWT se necessário
+                    // window.location.href = 'dashboard';
+                } else {
+                    alert('Erro ao autenticar usuário');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao autenticar usuário');
+            }
+        });
+
+
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+
+    console.log({ email, senha });  // Adicione isso para verificar os dados
+
+    const response = await fetch('http://localhost:3000/api/users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, senha })
+    });
+
+    if (response.ok) {
+        alert('Usuário autenticado com sucesso');
+    } else {
+        alert('Erro ao autenticar usuário');
+    }
+});
+
+
+    </script>
+</body>
+<style>
+body {
+    background-color: rgb(15, 15, 19);
+    font-family: 'Poppins', sans-serif;
+    padding: 50px;
+    align-items: center;
+
+}
+
+h1 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    margin: 20px 0; /* Reduzido o espaço acima e abaixo do título */
+    color: #ffffff;
+    right: 20px;
+}
+
+p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 20px 0; /* Reduzido o espaço acima e abaixo do parágrafo */
+    color: #ffffff;
+    right: 20px;
+}
+
+form {
+    border-radius: 8px;
+    flex-direction: column;
+    margin: 20px 0;  /* Centralizar o formulário na página */
+    position:relative;
+    right: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Para centralizar horizontalmente */
+}
+
+
+.input-container {
+    position: relative;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.input-container i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #ccc;
+}
+
+input {
+    padding: 10px 10px 10px 40px; /* Espaçamento interno para o ícone */
+    margin-top: 10px; /* Margem entre os inputs */
+    border: 1px solid #ccc; /* Borda cinza claro */
+    border-radius: 15px; /* Deixa os campos com bordas redondas */
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    width: 100%;
+    background-color: #000; /* Cor de fundo preto */
+    color: #ccc; /* Cor do texto cinza claro */
+}
+
+button {
+    margin-top: 20px; /* Margem entre o último input e o botão */
+    padding: 15px 20px; /* Aumenta o tamanho do botão */
+    border: none;
+    font-size: 18px; /* Aumenta o tamanho da fonte */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 15px; /* Deixa o botão com bordas redondas */
+    background: #ffffff;
+    width: calc(100% - 40px); /* Faz o botão ocupar toda a largura do formulário menos o padding do form */
+    text-align: center; /* Centraliza o texto dentro do botão */
+    font-family: "Poppins", sans-serif;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Para centralizar horizontalmente */
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+button:hover {
+    background: #5802db;
+}
+
+
+.esqueci {
+    margin-top: 10px; /* Margem entre o último input e o botão */
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Para centralizar horizontalmente */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+}
+
+.esqueci :active {
+    transform: scale(0.96);
+}
+
+.esqueci :hover {
+    color: #5802db;
+}
+
+
+
+
+.criar {
+    text-align: center; /* Centraliza o texto */
+    margin-top: 20px; /* Margem superior para separar do conteúdo acima */
+    font-weight: 200;
+    font-family: "Poppins", sans-serif;
+}
+
+.botao-azul {
+    padding: 8px 8px; /* Aumenta o tamanho do botão */
+    border: none;
+    font-size: 15px; /* Aumenta o tamanho da fonte */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 15px; /* Deixa o botão com bordas redondas */
+    background: #ffffff;
+    text-align: center; /* Centraliza o texto dentro do botão */
+    font-family: "Poppins", sans-serif;
+    width: 40%;
+    position: fixed;
+    bottom: 30px; /* Distância do fundo da página */
+    left: 160px;
+    align-items: center;
+    justify-content: center; /* Para centralizar horizontalmente */
+}
+
+.inscreverse:active {
+    transform: scale(0.96);
+}
+
+.inscreverse:hover {
+    background: #5802db;
+}
+
+
+.conta{
+    color: #ffffff;
+    padding: 8px 8px; /* Aumenta o tamanho do botão */
+    border: none;
+    text-align: center; /* Centraliza o texto dentro do botão */
+    font-family: "Poppins", sans-serif;
+    width: 40%;
+    position: fixed;
+    bottom: 70px; /* Distância do fundo da página */
+    left: 160px;
+    align-items: center;
+    justify-content: center; /* Para centralizar horizontalmente */
+}
+
+
+
+
+</style>
+</html>
