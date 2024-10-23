@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página do Usuário</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script type="module">
+        // Importando as bibliotecas do Firebase
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+        import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmXmb1gBb0VJ1Xw0p4bb7oL4r7Zoc3YBk",
+            authDomain: "carspot-2f0fa.firebaseapp.com",
+            projectId: "carspot-2f0fa",
+            storageBucket: "carspot-2f0fa.appspot.com",
+            messagingSenderId: "645950047928",
+            appId: "1:645950047928:web:f83f572b96143b67f8964d",
+            measurementId: "G-MY034QC436"
+        };
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app); // Inicializa o Firestore
+        const auth = getAuth(app); // Inicializa o Firebase Authentication
+
+        // Teste de conexão ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verifica o estado de autenticação
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const userId = user.uid; // Pega o ID do usuário autenticado
+                    const userDocRef = doc(db, 'users', userId); // Referência ao documento do usuário
+
+                    // Busca os dados do usuário
+                    getDoc(userDocRef).then((doc) => {
+                        if (doc.exists()) {
+                            const userData = doc.data();
+                            console.log("Dados do usuário:", userData); // Para depuração
+                            document.getElementById('userFullName').innerText = userData.nome; // Nome do usuário
+                            document.getElementById('emailField').value = userData.email; // Email do usuário
+                            document.getElementById('phoneField').value = userData.telefone; // Telefone do usuário
+                            document.getElementById('registrationDate').innerText = "Data de Cadastro: " + userData.dataCadastro; // Data de Cadastro
+                        } else {
+                            document.getElementById('userFullName').innerText = 'Usuário não encontrado';
+                        }
+                    }).catch((error) => {
+                        console.error("Erro ao buscar dados:", error.message);
+                        document.getElementById('userFullName').innerText = 'Erro ao carregar dados';
+                    });
+                } else {
+                    document.getElementById('userFullName').innerText = 'Usuário não autenticado';
+                }
+            });
+        });
+    </script>
+
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: rgb(15, 15, 19);
+        color: #ffffff;
+        padding: 20px;
+        margin: 0;
+        overflow-x: hidden; /* Previne rolagem horizontal */
+    }
+    .container {
+        background: #222;
+        border-radius: 12px;
+        padding: 20px;
+        max-width: 100%;
+        margin: auto;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .user-info {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .user-info h2 {
+        margin: 10px 0;
+        font-size: 1.5em;
+    }
+    .input-field {
+        margin: 15px 0;
+    }
+    .input-field input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #555;
+        border-radius: 10px;
+        background-color: #000;
+        color: #ccc;
+        box-sizing: border-box; /* Inclui padding e border no tamanho total */
+    }
+    .links {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .links a {
+        display: block;
+        margin: 5px 0;
+        color: #007bff;
+        text-decoration: none;
+    }
+    .links a:hover {
+        text-decoration: underline;
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #333; /* Cor de fundo da navbar */
+        color: white; /* Cor do texto da navbar */
+        height: 60px; /* Altura fixa para a navbar */
+        position: fixed; /* Fixa a navbar na parte inferior */
+        bottom: 0; /* Posiciona na parte inferior da página */
+        width: 100%; /* Largura total */
+        z-index: 2; /* Para garantir que a navbar fique acima de outros elementos */
+        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.3); /* Sombra para um efeito de profundidade */
+    }
+
+    .nav-item {
+        text-align: center; /* Centraliza o texto dos itens da navbar */
+        color: white; /* Cor do texto dos itens */
+        text-decoration: none; /* Remove o sublinhado */
+        padding: 10px; /* Padding para um melhor espaçamento */
+        flex: 1; /* Faz com que os itens ocupem espaço igual */
+    }
+
+    .nav-item i {
+        font-size: 24px; /* Tamanho do ícone */
+    }
+
+    .nav-item:hover {
+        background-color: #444; /* Cor de fundo ao passar o mouse */
+        border-radius: 5px; /* Bordas arredondadas ao passar o mouse */
+    }
+
+    /* Responsividade */
+    @media (max-width: 600px) {
+        .navbar h1 {
+            font-size: 20px; /* Tamanho do texto reduzido para telas pequenas */
+        }
+
+        .nav-item i {
+            font-size: 20px; /* Tamanho do ícone reduzido */
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container" id="userContainer">
+    <div class="navbar">
+        <h1>Meu Perfil</h1>
+        <div>
+            <span class="icon-user"><i class="fas fa-user"></i></span>
+            <span id="userFullName">Carregando...</span> <!-- ID alterado para evitar conflitos -->
+            <div class="menu-icon">
+                <i class="fas fa-ellipsis-v" style="font-size: 1.5em;"></i>
+                <div class="menu">
+                    <a href="#" class="menu-item">Opção 1</a>
+                    <a href="#" class="menu-item">Opção 2</a>
+                    <a href="#" class="menu-item">Opção 3</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-info">
+        <h2 id="userFullName">Carregando...</h2> <!-- Este ID deve ser alterado também -->
+        <p id="registrationDate">Data de Cadastro: Carregando...</p>
+    </div>
+
+    <div class="input-field">
+        <input type="email" placeholder="Email" id="emailField" readonly />
+    </div>
+    <div class="input-field">
+        <input type="tel" placeholder="Telefone" id="phoneField" readonly />
+    </div>
+
+    <div class="links">
+        <a href="#">Esqueci minha senha</a>
+        <a href="#">Sair da minha conta</a>
+    </div>
+
+    <!-- Barra de Navegação Inferior -->
+    <div class="navbar">
+        <a href="/pesquisar" class="nav-item">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="/relatorio" class="nav-item">
+            <i class="fas fa-file-alt"></i>
+        </a>
+        <a href="#notifications" class="nav-item">
+            <i class="fas fa-bell"></i>
+        </a>
+        <a href="/perfil" class="nav-item">
+            <i class="fas fa-user"></i>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
