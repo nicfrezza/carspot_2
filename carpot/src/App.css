@@ -1,0 +1,60 @@
+/* Full-screen background with modern, clean design */
+.landing-page {
+  height: 100vh;
+  background-image: url('https://your-image-url.com/your-image.jpg'); /* Replace with your image URL */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* Content container with centered elements */
+.content {
+  text-align: center;
+  color: white;
+  max-width: 600px; /* Limit the width for better readability */
+  background: rgba(0, 0, 0, 0.5); /* Dark transparent overlay */
+  padding: 40px 20px;
+  border-radius: 15px;
+}
+
+/* Main title styling */
+.title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+/* Subtitle with lighter font weight */
+.subtitle {
+  font-size: 18px;
+  font-weight: 300;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+/* Call-to-action button styling */
+.cta-container {
+  width: 100%;
+}
+
+.cta-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  background-color: #007bff; /* Blue color for a clean, modern look */
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the button */
+.cta-button:hover {
+  background-color: #0056b3;
+}
